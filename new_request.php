@@ -11,11 +11,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $from = $_POST['from_address'] ?? '';
     $to = $_POST['to_address'] ?? '';
 
-    $stmt = $mysqli->prepare("INSERT INTO requests (user_id, request_date, request_time, weight, dimensions, cargo_type, from_address, to_address)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param('issdssss', $_SESSION['user_id'], $req_date, $req_time, $weight, $dims, $type, $from, $to);
-    $stmt->execute();
-    $msg = 'Заявка успешно создана!';
+    $stmt = $mysqli->prepare(
+        "INSERT INTO requests (user_id, request_date, request_time, weight, dimensions, cargo_type, from_address, to_address)" .
+        " VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+    );
+    if ($stmt) {
+        $weight = (float) $weight;
+        $stmt->bind_param('issdssss', $_SESSION['user_id'], $req_date, $req_time, $weight, $dims, $type, $from, $to);
+        if ($stmt->execute()) {
+            $msg = 'Заявка успешно создана!';
+        } else {
+            $msg = 'Ошибка при сохранении заявки: ' . $stmt->error;
+        }
+        $stmt->close();
+    } else {
+        $msg = 'Ошибка подготовки запроса: ' . $mysqli->error;
+    }
 }
 ?>
 <div class="container">
