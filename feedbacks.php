@@ -12,7 +12,9 @@ if (isset($_SESSION['user_id']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
         );
         if ($stmt) {
             $stmt->bind_param('iis', $_SESSION['user_id'], $rating, $comment);
-            $stmt->execute();
+            if (!$stmt->execute()) {
+                error_log('DB execute failed in feedbacks.php: ' . $stmt->error);
+            }
             $stmt->close();
         } else {
             error_log('DB prepare failed in feedbacks.php: ' . $mysqli->error);
