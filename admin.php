@@ -1,4 +1,4 @@
-<?php require 'db.php'; require 'navbar.php'; session_start();
+<?php require 'db.php'; require 'navbar.php'; 
 if (!($_SESSION['is_admin'] ?? false)) { header('Location: login.php'); exit; }
 
 // Обработка смены статуса

@@ -1,5 +1,5 @@
 <?php require 'db.php'; require 'navbar.php';
-if (!isset($_SESSION['user_id'])) { header('Locatio n: login.php'); exit; }
+if (!isset($_SESSION['user_id'])) { header('Location: login.php'); exit; }
 
 $user_id = $_SESSION['user_id'];
 $result = $mysqli->query("SELECT * FROM requests WHERE user_id = $user_id ORDER BY id DESC");
