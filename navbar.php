@@ -13,6 +13,7 @@ if (session_status() === PHP_SESSION_NONE) {
     </button>
     <div class="collapse navbar-collapse" id="navmenu">
       <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="feedbacks.php">Отзывы</a></li>
         <?php if(isset($_SESSION['user_id'])): ?>
           <li class="nav-item"><a class="nav-link" href="new_request.php">Создать заявку</a></li>
           <li class="nav-item"><a class="nav-link" href="requests.php">Мои заявки</a></li>
