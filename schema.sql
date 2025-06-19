@@ -26,6 +26,15 @@ CREATE TABLE requests (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+CREATE TABLE service_reviews (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    rating TINYINT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+    comment TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
 INSERT INTO users (fio, phone, email, login, password, is_admin)
 VALUES ('Администратор', '+7(999)-999-99-99', 'admin@gruzovozoff.ru', 'admin',
 'gruzok2024', 1);
