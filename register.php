@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (mb_strlen($login) < 6) $errors[] = 'Логин должен быть не менее 6 символов';
     if (mb_strlen($password) < 6) $errors[] = 'Пароль должен быть не менее 6 символов';
     if (empty($errors)) {
-        $stmt = $mysqli->prepare("INSERT INTO users (fio, phone, email, login, password) VALUES (?, ?, ?, ?, ?)");
+        $stmt = $mysqli->prepare("INSERT INTO users (fio, phone, email, login, password, is_admin) VALUES (?, ?, ?, ?, ?, 0)");
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
         $stmt->bind_param('sssss', $fio, $phone, $email, $login, $passwordHash);
         if ($stmt->execute()) header('Location: login.php');

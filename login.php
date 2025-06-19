@@ -3,14 +3,14 @@ $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $login = trim($_POST['login']);
     $password = trim($_POST['password']);
-    $stmt = $mysqli->prepare("SELECT id, password FROM users WHERE login = ?");
+    $stmt = $mysqli->prepare("SELECT id, password, is_admin FROM users WHERE login = ?");
     $stmt->bind_param('s', $login);
     $stmt->execute();
-    $stmt->bind_result($id, $passHash);
+    $stmt->bind_result($id, $passHash, $isAdmin);
     if ($stmt->fetch()) {
         if (password_verify($password, $passHash)) {
             $_SESSION['user_id'] = $id;
-            $_SESSION['is_admin'] = ($login == 'adminadmin');
+            $_SESSION['is_admin'] = ($isAdmin == 1);
             header('Location: dashboard.php');
             exit;
         } else $error = 'Неверный пароль';
