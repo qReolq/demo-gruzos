@@ -28,7 +28,7 @@ $result = $mysqli->query("SELECT * FROM requests WHERE user_id = $user_id ORDER 
             <td><?= $row['to_address'] ?></td>
             <td><?= $statusMap[$row['status']] ?? $row['status'] ?></td>
             <td>
-                <?php if ($row['feedback']): ?>
+                <?php if (!empty($row['feedback'])): ?>
                     <?= htmlspecialchars($row['feedback']) ?>
                 <?php else: ?>
                     <form method="POST" class="d-flex">
