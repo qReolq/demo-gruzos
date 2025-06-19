@@ -22,9 +22,10 @@ CREATE TABLE requests (
     from_address VARCHAR(255),
     to_address VARCHAR(255),
     status ENUM('new', 'in_progress', 'cancelled') DEFAULT 'new',
+    feedback TEXT,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 INSERT INTO users (fio, phone, email, login, password, is_admin)
-VALUES ('Администратор', '+7(999)-999-99-99', 'admin@gruzovozoff.ru', 'adminadmin',
-'adminadmin', 1);
+VALUES ('Администратор', '+7(999)-999-99-99', 'admin@gruzovozoff.ru', 'admin',
+'gruzok2024', 1);

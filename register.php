@@ -9,7 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!preg_match('/^[А-Яа-яЁё\\s]{2,}$/u', $fio)) $errors[] = 'ФИО некорректно';
     if (!preg_match('/^\\+7\\(\\d{3}\\)-\\d{3}-\\d{2}-\\d{2}$/', $phone)) $errors[] = 'Телефон некорректный';
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = 'Email некорректный';
-    if (mb_strlen($login) < 6) $errors[] = 'Логин должен быть не менее 6 символов';
+    if (!preg_match('/^[А-Яа-яЁё]{6,}$/u', $login))
+        $errors[] = 'Логин должен быть кириллицей и не менее 6 символов';
     if (mb_strlen($password) < 6) $errors[] = 'Пароль должен быть не менее 6 символов';
     if (empty($errors)) {
         $stmt = $mysqli->prepare("INSERT INTO users (fio, phone, email, login, password, is_admin) VALUES (?, ?, ?, ?, ?, 0)");
