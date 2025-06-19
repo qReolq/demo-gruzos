@@ -13,13 +13,14 @@ if (isset($_GET['set_status'], $_GET['id'])) {
     }
 }
 
+$statusMap = ['new' => 'новая', 'in_progress' => 'в работе', 'cancelled' => 'отменена'];
 $result = $mysqli->query("SELECT r.*, u.fio FROM requests r JOIN users u ON r.user_id = u.id ORDER BY r.id DESC");
 ?>
 <div class="container">
     <h2>Админка - Все заявки</h2>
     <table class="table table-bordered table-striped mt-3">
         <tr class="table-primary">
-            <th>ID</th><th>Пользователь</th><th>Вес</th><th>Тип</th><th>Откуда</th><th>Куда</th><th>Статус</th><th>Действие</th>
+            <th>ID</th><th>Пользователь</th><th>Вес</th><th>Тип</th><th>Откуда</th><th>Куда</th><th>Статус</th><th>Отзыв</th><th>Действие</th>
         </tr>
         <?php while ($row = $result->fetch_assoc()): 
             $badge = ($row['status'] == 'new') ? 'badge bg-info' :
@@ -32,7 +33,8 @@ $result = $mysqli->query("SELECT r.*, u.fio FROM requests r JOIN users u ON r.us
             <td><?= $row['cargo_type'] ?></td>
             <td><?= $row['from_address'] ?></td>
             <td><?= $row['to_address'] ?></td>
-            <td><span class="<?= $badge ?>"><?= $row['status'] ?></span></td>
+            <td><span class="<?= $badge ?>"><?= $statusMap[$row['status']] ?? $row['status'] ?></span></td>
+            <td><?= htmlspecialchars($row['feedback']) ?></td>
             <td>
                 <a class="btn btn-sm btn-info mb-1" href="?id=<?= $row['id'] ?>&set_status=new">Новая</a>
                 <a class="btn btn-sm btn-success mb-1" href="?id=<?= $row['id'] ?>&set_status=in_progress">В работе</a>
