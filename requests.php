@@ -7,8 +7,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'], $_POST['r
     $fb = trim($_POST['feedback']);
     $req_id = (int)$_POST['req_id'];
     $stmt = $mysqli->prepare("UPDATE requests SET feedback=? WHERE id=? AND user_id=?");
-    $stmt->bind_param('sii', $fb, $req_id, $user_id);
-    $stmt->execute();
+    if ($stmt) {
+        $stmt->bind_param('sii', $fb, $req_id, $user_id);
+        $stmt->execute();
+        $stmt->close();
+    } else {
+        error_log('DB prepare failed: ' . $mysqli->error);
+    }
 }
 $statusMap = ['new' => 'новая', 'in_progress' => 'в работе', 'cancelled' => 'отменена'];
 $result = $mysqli->query("SELECT * FROM requests WHERE user_id = $user_id ORDER BY id DESC");
