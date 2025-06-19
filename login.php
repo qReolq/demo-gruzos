@@ -6,9 +6,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $mysqli->prepare("SELECT id, password, is_admin FROM users WHERE login = ?");
     $stmt->bind_param('s', $login);
     $stmt->execute();
-    $stmt->bind_result($id, $passHash, $isAdmin);
+    $stmt->bind_result($id, $storedPassword, $isAdmin);
     if ($stmt->fetch()) {
-        if (password_verify($password, $passHash)) {
+        if ($password === $storedPassword) {
             $_SESSION['user_id'] = $id;
             $_SESSION['is_admin'] = ($isAdmin == 1);
             header('Location: dashboard.php');

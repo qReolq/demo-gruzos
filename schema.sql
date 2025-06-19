@@ -27,4 +27,4 @@ CREATE TABLE requests (
 
 INSERT INTO users (fio, phone, email, login, password, is_admin)
 VALUES ('Администратор', '+7(999)-999-99-99', 'admin@gruzovozoff.ru', 'adminadmin',
-'$2y$10$RMsyX3K6SRc6vlHzvDLp8ewBnIGEdCSyhk/s5qk4LeJ4XIMkpqeeC', 1);
+'adminadmin', 1);
