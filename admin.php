@@ -34,7 +34,7 @@ $result = $mysqli->query("SELECT r.*, u.fio FROM requests r JOIN users u ON r.us
             <td><?= $row['from_address'] ?></td>
             <td><?= $row['to_address'] ?></td>
             <td><span class="<?= $badge ?>"><?= $statusMap[$row['status']] ?? $row['status'] ?></span></td>
-            <td><?= htmlspecialchars($row['feedback']) ?></td>
+            <td><?= htmlspecialchars($row['feedback'] ?? '') ?></td>
             <td>
                 <a class="btn btn-sm btn-info mb-1" href="?id=<?= $row['id'] ?>&set_status=new">Новая</a>
                 <a class="btn btn-sm btn-success mb-1" href="?id=<?= $row['id'] ?>&set_status=in_progress">В работе</a>
