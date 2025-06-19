@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (phone) {
     phone.addEventListener('input', () => {
       let digits = phone.value.replace(/\D/g, '').substring(0, 10);
+      if (digits.length === 0) {
+        phone.value = '';
+        return;
+      }
       let result = '+7(';
       if (digits.length >= 1) result += digits.substring(0, 3);
       if (digits.length >= 4) result += ')-' + digits.substring(3, 6);
