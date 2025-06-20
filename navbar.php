@@ -3,16 +3,11 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 ?>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel='stylesheet' href='assets/css/style.css'>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+<nav class="navbar">
   <div class="container">
     <a class="navbar-brand" href="dashboard.php">Грузовозофф</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navmenu">
-      <ul class="navbar-nav ms-auto">
+    <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="feedbacks.php">Отзывы</a></li>
         <?php if(isset($_SESSION['user_id'])): ?>
           <li class="nav-item"><a class="nav-link" href="new_request.php">Создать заявку</a></li>
@@ -26,9 +21,6 @@ if (session_status() === PHP_SESSION_NONE) {
           <li class="nav-item"><a class="nav-link" href="register.php">Регистрация</a></li>
         <?php endif; ?>
       </ul>
-    </div>
   </div>
 </nav>
-<br><br><br>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src='assets/js/script.js'></script>
